@@ -35,13 +35,7 @@ interface ShopCardProps {
 const ShopCard = ({ shop, index }: ShopCardProps) => {
   return (
     <Link to={`/shop/${shop.id}`}>
-      <motion.div
-        layout
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, delay: index * 0.05 }}
-        className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md hover:border-primary/40 transition-all group h-full"
-      >
+      <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md hover:border-primary/40 transition-all group h-full">
       <div className="relative h-48 overflow-hidden">
         <img 
           src={shop.image} 
@@ -91,7 +85,7 @@ const ShopCard = ({ shop, index }: ShopCardProps) => {
           </button>
         </div>
       </div>
-      </motion.div>
+      </div>
     </Link>
   );
 };
