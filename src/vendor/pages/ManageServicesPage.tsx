@@ -62,23 +62,23 @@ const ManageServicesPage: React.FC = () => {
 
   return (
     <VendorLayout>
-      <div className="p-6 md:p-10">
-        <div className="max-w-6xl mx-auto">
-          <header className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+      <div className="p-6 md:p-10 lg:px-12 animate-fade-in">
+        <div className="max-w-7xl mx-auto">
+          <header className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Manage Services</h1>
-              <p className="text-slate-500 mt-1">Add, edit or remove the services you offer to customers.</p>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Manage Services</h1>
+              <p className="text-slate-400 mt-2 text-lg">Add, edit or remove the services you offer to customers.</p>
             </div>
             <button
               onClick={openAddForm}
-              className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-semibold transition-all shadow-lg shadow-indigo-200 active:scale-95"
+              className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold shadow-lg shadow-violet-500/25 active:scale-95 transition-all"
             >
               <Plus className="w-5 h-5" />
               <span>Add New Service</span>
             </button>
           </header>
 
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="bg-[#111827]/60 backdrop-blur-xl rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.2)] border border-white/5 overflow-hidden p-2">
             <ServiceList 
               services={services} 
               onEdit={openEditForm} 

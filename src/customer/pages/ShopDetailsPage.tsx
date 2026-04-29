@@ -1,18 +1,57 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
+import { addToCart, updateQuantity } from '../store/customerSlice';
 import { ChevronLeft, MapPin, Star, Clock, Info, ShieldCheck, ShoppingCart, Plus, Minus } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { cn } from '../../shared/utils/cn';
 
+import { ShopDetailsSkeleton } from '../components/Skeleton';
+
 const ShopDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { shops } = useSelector((state: RootState) => state.customer);
+  const dispatch = useDispatch();
+  const { shops, cart, loading } = useSelector((state: RootState) => state.customer);
   const shop = shops.find(s => s.id === Number(id));
+
+  const getQuantity = (serviceId: string) => {
+    return cart.find(item => item.serviceId === serviceId)?.quantity || 0;
+  };
+
+  const handleUpdateCart = (service: any, delta: number) => {
+    const currentQty = getQuantity(service.id);
+    const newQty = currentQty + delta;
+    
+    if (currentQty === 0 && delta > 0) {
+      dispatch(addToCart({
+        shopId: Number(id),
+        serviceId: service.id,
+        name: service.name,
+        price: service.price,
+        quantity: 1,
+        unit: service.unit
+      }));
+    } else {
+      dispatch(updateQuantity({ serviceId: service.id, quantity: newQty }));
+    }
+  };
+
+  const cartCount = cart.length;
+  const cartTotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <Header />
+        <ShopDetailsSkeleton />
+        <Footer />
+      </div>
+    );
+  }
 
   if (!shop) {
     return (
@@ -123,11 +162,17 @@ const ShopDetailsPage = () => {
                   </div>
 
                   <div className="flex items-center gap-4 bg-slate-50 p-2 rounded-xl border border-slate-100">
-                    <button className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 active:scale-90 transition-all">
+                    <button 
+                      onClick={() => handleUpdateCart(service, -1)}
+                      className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 active:scale-90 transition-all"
+                    >
                       <Minus className="w-4 h-4" />
                     </button>
-                    <span className="font-bold text-slate-800 w-4 text-center">0</span>
-                    <button className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 active:scale-90 transition-all shadow-sm shadow-blue-200">
+                    <span className="font-black text-slate-800 w-4 text-center">{getQuantity(service.id)}</span>
+                    <button 
+                      onClick={() => handleUpdateCart(service, 1)}
+                      className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 active:scale-90 transition-all shadow-sm shadow-blue-200"
+                    >
                       <Plus className="w-4 h-4" />
                     </button>
                   </div>
@@ -144,13 +189,31 @@ const ShopDetailsPage = () => {
               </div>
             )}
 
-            {/* Checkout Sticky Bar (Mobile Only Style) */}
-            <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-slate-200 shadow-2xl lg:hidden z-40">
-              <button className="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg shadow-blue-200">
-                <ShoppingCart className="w-5 h-5" />
-                Proceed to Booking
-              </button>
-            </div>
+            {/* Checkout Sticky Bar */}
+            <AnimatePresence>
+              {cartCount > 0 && (
+                <motion.div 
+                  initial={{ y: 100 }}
+                  animate={{ y: 0 }}
+                  exit={{ y: 100 }}
+                  className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-slate-200 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] lg:flex justify-center z-40"
+                >
+                  <div className="max-w-7xl w-full flex items-center justify-between gap-6 px-4">
+                    <div className="hidden sm:flex flex-col">
+                      <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Total Amount</span>
+                      <span className="text-xl font-black text-slate-900">₹{cartTotal}</span>
+                    </div>
+                    <button 
+                      onClick={() => navigate('/checkout')}
+                      className="w-full sm:w-auto bg-blue-600 text-white px-12 py-4 rounded-2xl font-black flex items-center justify-center gap-3 shadow-xl shadow-blue-200 hover:scale-[1.02] active:scale-95 transition-all"
+                    >
+                      <ShoppingCart className="w-5 h-5" />
+                      Proceed to Booking ({cartCount} Items)
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </main>

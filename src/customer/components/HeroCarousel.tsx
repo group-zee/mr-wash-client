@@ -80,7 +80,7 @@ const HeroCarousel = ({ searchQuery, setSearchQuery, locationQuery, setLocationQ
             </span>
           </div>
           
-          <h1 className="text-5xl md:text-8xl font-black text-white leading-[1] tracking-tighter">
+          <h1 className="text-4xl sm:text-5xl md:text-8xl font-black text-white leading-[1] tracking-tighter">
             {HERO_SLIDES[current].title.split(' ').map((word, i) => (
               <span key={i} className={word === 'Laundry' || word === 'Real-Time' || word === 'Premium' ? 'bg-gradient-to-r from-brand to-accent bg-clip-text text-transparent' : ''}>
                 {word}{' '}

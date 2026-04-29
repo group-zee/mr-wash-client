@@ -11,12 +11,12 @@ interface ServiceListProps {
 const ServiceList: React.FC<ServiceListProps> = ({ services, onEdit, onDelete }) => {
   if (services.length === 0) {
     return (
-      <div className="p-12 text-center">
-        <div className="bg-slate-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Tag className="w-8 h-8 text-slate-300" />
+      <div className="p-16 text-center">
+        <div className="bg-white/5 border border-white/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+          <Tag className="w-10 h-10 text-slate-500" />
         </div>
-        <h3 className="text-lg font-semibold text-slate-900">No services found</h3>
-        <p className="text-slate-500">Get started by adding your first laundry service.</p>
+        <h3 className="text-xl font-bold text-white mb-2">No services found</h3>
+        <p className="text-slate-400">Get started by adding your first laundry service.</p>
       </div>
     );
   }
@@ -25,48 +25,48 @@ const ServiceList: React.FC<ServiceListProps> = ({ services, onEdit, onDelete })
     <div className="overflow-x-auto">
       <table className="w-full text-left border-collapse">
         <thead>
-          <tr className="bg-slate-50 border-b border-slate-200">
-            <th className="px-6 py-4 text-sm font-semibold text-slate-600 uppercase tracking-wider">Service Details</th>
-            <th className="px-6 py-4 text-sm font-semibold text-slate-600 uppercase tracking-wider">Category</th>
-            <th className="px-6 py-4 text-sm font-semibold text-slate-600 uppercase tracking-wider">Pricing</th>
-            <th className="px-6 py-4 text-sm font-semibold text-slate-600 uppercase tracking-wider">Time</th>
-            <th className="px-6 py-4 text-sm font-semibold text-slate-600 uppercase tracking-wider text-right">Actions</th>
+          <tr className="bg-white/5 border-b border-white/10">
+            <th className="px-6 py-5 text-xs font-bold text-slate-400 uppercase tracking-wider">Service Details</th>
+            <th className="px-6 py-5 text-xs font-bold text-slate-400 uppercase tracking-wider">Category</th>
+            <th className="px-6 py-5 text-xs font-bold text-slate-400 uppercase tracking-wider">Pricing</th>
+            <th className="px-6 py-5 text-xs font-bold text-slate-400 uppercase tracking-wider">Time</th>
+            <th className="px-6 py-5 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">Actions</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-100">
+        <tbody className="divide-y divide-white/5">
           {services.map((service) => (
-            <tr key={service.id} className="hover:bg-slate-50/50 transition-colors group">
-              <td className="px-6 py-4">
-                <div className="font-bold text-slate-900">{service.name}</div>
-                <div className="text-sm text-slate-500 max-w-xs truncate">{service.description}</div>
+            <tr key={service.id} className="hover:bg-violet-500/10 transition-colors group">
+              <td className="px-6 py-5">
+                <div className="font-bold text-white mb-1">{service.name}</div>
+                <div className="text-sm text-slate-400 max-w-xs truncate">{service.description}</div>
               </td>
-              <td className="px-6 py-4">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-100">
+              <td className="px-6 py-5">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-violet-500/10 text-violet-300 border border-violet-500/20">
                   {service.category}
                 </span>
               </td>
-              <td className="px-6 py-4">
-                <div className="text-slate-900 font-medium">₹{service.price}</div>
-                <div className="text-xs text-slate-400">per {service.unit}</div>
+              <td className="px-6 py-5">
+                <div className="text-white font-bold text-lg">₹{service.price}</div>
+                <div className="text-xs text-slate-500 font-medium mt-0.5">per {service.unit}</div>
               </td>
-              <td className="px-6 py-4">
-                <div className="flex items-center gap-1.5 text-sm text-slate-600">
-                  <Clock className="w-3.5 h-3.5 text-slate-400" />
+              <td className="px-6 py-5">
+                <div className="flex items-center gap-2 text-sm text-slate-300 font-medium">
+                  <Clock className="w-4 h-4 text-violet-400" />
                   {service.estimatedTime}
                 </div>
               </td>
-              <td className="px-6 py-4 text-right">
-                <div className="flex items-center justify-end gap-2">
+              <td className="px-6 py-5 text-right">
+                <div className="flex items-center justify-end gap-2 opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={() => onEdit(service)}
-                    className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
+                    className="p-2.5 text-slate-400 hover:text-violet-300 hover:bg-violet-500/20 rounded-xl transition-all"
                     title="Edit Service"
                   >
                     <Edit2 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => onDelete(service.id)}
-                    className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                    className="p-2.5 text-slate-400 hover:text-red-300 hover:bg-red-500/20 rounded-xl transition-all"
                     title="Delete Service"
                   >
                     <Trash2 className="w-4 h-4" />
