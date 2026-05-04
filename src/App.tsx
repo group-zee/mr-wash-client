@@ -12,6 +12,7 @@ const ReviewsPage = React.lazy(() => import('./vendor/pages/ReviewsPage'));
 const VendorLoginPage = React.lazy(() => import('./vendor/pages/VendorLoginPage'));
 const VendorSignupPage = React.lazy(() => import('./vendor/pages/VendorSignupPage'));
 
+
 // Lazy Load Pages
 const HomePage = React.lazy(() => import('./customer/pages/HomePage'));
 const ShopDetailsPage = React.lazy(() => import('./customer/pages/ShopDetailsPage'));
@@ -34,6 +35,7 @@ function App() {
           {/* Customer Auth Routes */}
           <Route path="/login" element={<CustomerLoginPage />} />
           <Route path="/signup" element={<CustomerSignupPage />} />
+
 
           {/* Customer Routes */}
           <Route path="/" element={<HomePage />} />
