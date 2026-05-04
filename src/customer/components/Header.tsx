@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn] = useState(false); // Mock auth state for demo
 
   const NAV_LINKS = [
     { name: 'Home', href: '/' },
@@ -45,15 +46,24 @@ const Header = () => {
             
             <div className="h-8 w-[1px] bg-slate-200 mx-2 hidden sm:block"></div>
             
-            <Link to="/profile" className="hidden sm:flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <div className="text-right">
-                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Customer</p>
-                <p className="text-sm font-bold text-slate-800">Alex Johnson</p>
+            {isLoggedIn ? (
+              <div className="hidden sm:flex items-center gap-3">
+                <Link to="/profile" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                  <div className="text-right">
+                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Customer</p>
+                    <p className="text-sm font-bold text-slate-800">Alex Johnson</p>
+                  </div>
+                  <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200">
+                    <User className="w-5 h-5 text-slate-600" />
+                  </div>
+                </Link>
               </div>
-              <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200">
-                <User className="w-5 h-5 text-slate-600" />
+            ) : (
+              <div className="hidden sm:flex items-center gap-3">
+                <Link to="/login" className="text-sm font-bold text-slate-700 hover:text-brand transition-colors">Log in</Link>
+                <Link to="/signup" className="text-sm font-bold bg-brand text-white px-5 py-2.5 rounded-xl shadow-[0_4px_15px_rgba(37,99,235,0.2)] hover:shadow-[0_4px_20px_rgba(37,99,235,0.3)] hover:-translate-y-0.5 transition-all">Sign up</Link>
               </div>
-            </Link>
+            )}
 
             {/* Mobile Menu Toggle */}
             <button 
@@ -84,15 +94,22 @@ const Header = () => {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="fixed top-0 right-0 bottom-0 w-3/4 max-w-xs bg-white z-[49] shadow-2xl md:hidden flex flex-col p-8"
             >
-              <div className="flex items-center gap-3 mb-10 pb-6 border-b border-slate-100">
-                <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200">
-                  <User className="w-6 h-6 text-slate-600" />
+              {isLoggedIn ? (
+                <div className="flex items-center gap-3 mb-10 pb-6 border-b border-slate-100">
+                  <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200">
+                    <User className="w-6 h-6 text-slate-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-black text-slate-800">Alex Johnson</p>
+                    <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="text-xs font-bold text-slate-400 hover:text-brand transition-colors block mt-0.5">View Profile</Link>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-black text-slate-800">Alex Johnson</p>
-                  <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="text-xs font-bold text-slate-400 hover:text-brand transition-colors block mt-0.5">View Profile</Link>
+              ) : (
+                <div className="flex flex-col gap-3 mb-10 pb-6 border-b border-slate-100">
+                  <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="w-full py-3 text-center rounded-xl font-bold text-slate-700 bg-slate-50 border border-slate-100">Log in</Link>
+                  <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)} className="w-full py-3 text-center rounded-xl font-bold text-white bg-brand shadow-lg shadow-brand/20">Sign up free</Link>
                 </div>
-              </div>
+              )}
 
               <div className="flex flex-col gap-6">
                 {NAV_LINKS.map((link) => (
@@ -108,11 +125,13 @@ const Header = () => {
                 ))}
               </div>
 
-              <div className="mt-auto pt-10">
-                <button className="w-full bg-slate-900 text-white py-4 rounded-2xl font-black shadow-xl">
-                  Logout
-                </button>
-              </div>
+              {isLoggedIn && (
+                <div className="mt-auto pt-10">
+                  <button className="w-full bg-slate-900 text-white py-4 rounded-2xl font-black shadow-xl">
+                    Logout
+                  </button>
+                </div>
+              )}
             </motion.div>
           </>
         )}

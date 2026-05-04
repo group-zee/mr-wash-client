@@ -17,6 +17,8 @@ const HomePage = React.lazy(() => import('./customer/pages/HomePage'));
 const ShopDetailsPage = React.lazy(() => import('./customer/pages/ShopDetailsPage'));
 const BookingPage = React.lazy(() => import('./customer/pages/BookingPage'));
 const CustomerProfilePage = React.lazy(() => import('./customer/pages/CustomerProfilePage'));
+const CustomerLoginPage = React.lazy(() => import('./customer/pages/CustomerLoginPage'));
+const CustomerSignupPage = React.lazy(() => import('./customer/pages/CustomerSignupPage'));
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-white">
@@ -29,6 +31,10 @@ function App() {
     <Router>
       <React.Suspense fallback={<PageLoader />}>
         <Routes>
+          {/* Customer Auth Routes */}
+          <Route path="/login" element={<CustomerLoginPage />} />
+          <Route path="/signup" element={<CustomerSignupPage />} />
+
           {/* Customer Routes */}
           <Route path="/" element={<HomePage />} />
           <Route path="/shop/:id" element={<ShopDetailsPage />} />
