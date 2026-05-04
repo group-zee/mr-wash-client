@@ -64,7 +64,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ initialData, onSubmit, onCanc
     });
   };
 
-  const inputClasses = "w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none text-slate-700 bg-slate-50/50";
+  const inputClasses = "w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700 bg-slate-50/50";
   const labelClasses = "block text-sm font-semibold text-slate-700 mb-1.5 ml-1";
 
   return (
@@ -142,7 +142,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ initialData, onSubmit, onCanc
                 onClick={() => setFormData({ ...formData, unit: u })}
                 className={`flex-1 py-1.5 text-sm font-medium rounded-lg transition-all ${
                   formData.unit === u
-                    ? 'bg-white text-indigo-600 shadow-sm'
+                    ? 'bg-white text-blue-600 shadow-sm'
                     : 'text-slate-500 hover:text-slate-700'
                 }`}
               >
@@ -161,7 +161,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ initialData, onSubmit, onCanc
             <div key={addon.id} className="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-100">
               <div className="flex items-center gap-3">
                 <div className="font-semibold text-slate-700">{addon.name}</div>
-                <div className="text-sm text-indigo-600 font-bold">₹{addon.price}</div>
+                <div className="text-sm text-blue-600 font-bold">₹{addon.price}</div>
               </div>
               <button
                 type="button"
@@ -174,31 +174,31 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ initialData, onSubmit, onCanc
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr,100px,50px] gap-2 items-end bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100/50">
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr,100px,50px] gap-2 items-end bg-blue-50/50 p-4 rounded-2xl border border-blue-100/50">
           <div>
-            <label className="text-[10px] font-bold text-indigo-400 uppercase ml-1">Add-on Name</label>
+            <label className="text-[10px] font-bold text-blue-400 uppercase ml-1">Add-on Name</label>
             <input
               type="text"
               placeholder="e.g., Fabric Softener"
               value={newAddon.name}
               onChange={(e) => setNewAddon({ ...newAddon, name: e.target.value })}
-              className="w-full px-3 py-2 rounded-lg border border-indigo-100 focus:border-indigo-400 outline-none text-sm"
+              className="w-full px-3 py-2 rounded-lg border border-blue-100 focus:border-blue-400 outline-none text-sm"
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold text-indigo-400 uppercase ml-1">Price (₹)</label>
+            <label className="text-[10px] font-bold text-blue-400 uppercase ml-1">Price (₹)</label>
             <input
               type="number"
               placeholder="0"
               value={newAddon.price}
               onChange={(e) => setNewAddon({ ...newAddon, price: e.target.value })}
-              className="w-full px-3 py-2 rounded-lg border border-indigo-100 focus:border-indigo-400 outline-none text-sm"
+              className="w-full px-3 py-2 rounded-lg border border-blue-100 focus:border-blue-400 outline-none text-sm"
             />
           </div>
           <button
             type="button"
             onClick={handleAddAddon}
-            className="h-[38px] flex items-center justify-center bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all active:scale-95 shadow-md shadow-indigo-100"
+            className="h-[38px] flex items-center justify-center bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all active:scale-95 shadow-md shadow-blue-100"
           >
             <Plus className="w-5 h-5" />
           </button>
@@ -215,7 +215,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ initialData, onSubmit, onCanc
         </button>
         <button
           type="submit"
-          className="flex-1 px-6 py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 active:scale-95"
+          className="flex-1 px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 active:scale-95"
         >
           {initialData ? 'Save Changes' : 'Add Service'}
         </button>
