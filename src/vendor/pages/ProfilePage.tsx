@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import VendorLayout from '../components/VendorLayout';
 import { VendorProfile } from '../types';
 import { Save, User, Mail, Phone, MapPin, Building, Clock, Info } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const ProfilePage: React.FC = () => {
   const [profile, setProfile] = useState<VendorProfile>({
@@ -21,40 +22,40 @@ const ProfilePage: React.FC = () => {
     e.preventDefault();
     setIsEditing(false);
     // Mock save
-    alert('Profile updated successfully!');
+    toast.success('Profile updated successfully!');
   };
 
-  const inputClasses = "w-full px-4 py-2.5 rounded-xl border border-white/10 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/50 transition-all outline-none text-white bg-[#111827]/80 disabled:bg-white/5 disabled:text-slate-500 shadow-[0_2px_10px_rgba(0,0,0,0.1)]";
-  const labelClasses = "flex items-center gap-2 text-sm font-semibold text-slate-300 mb-1.5 ml-1";
+  const inputClasses = "w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none text-slate-900 bg-white disabled:bg-slate-50 disabled:text-slate-500 shadow-sm";
+  const labelClasses = "flex items-center gap-1.5 text-xs font-semibold text-slate-700 mb-1.5 ml-1";
 
   return (
     <VendorLayout>
       <div className="p-6 md:p-10 lg:px-12 animate-fade-in">
         <div className="max-w-4xl mx-auto">
-          <header className="flex items-center justify-between mb-10">
+          <header className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Business Profile</h1>
-              <p className="text-slate-400 mt-2 text-lg">Manage your business details and contact information.</p>
+              <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Business Profile</h1>
+              <p className="text-slate-500 mt-1 text-base">Manage your business details and contact information.</p>
             </div>
             {!isEditing ? (
               <button 
                 onClick={() => setIsEditing(true)}
-                className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg shadow-violet-500/25 active:scale-95"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold transition-all shadow-sm active:scale-95 text-sm"
               >
                 Edit Profile
               </button>
             ) : null}
           </header>
 
-          <form onSubmit={handleSave} className="space-y-8">
-            <div className="bg-[#111827]/60 backdrop-blur-xl p-6 md:p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.2)] border border-white/5">
-              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <Building className="w-5 h-5 text-violet-400" />
+          <form onSubmit={handleSave} className="space-y-6">
+            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
+              <h2 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <Building className="w-5 h-5 text-blue-600" />
                 Business Information
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className={labelClasses}><Building className="w-4 h-4" /> Business Name</label>
+                  <label className={labelClasses}><Building className="w-4 h-4 text-slate-400" /> Business Name</label>
                   <input 
                     disabled={!isEditing}
                     type="text" 
@@ -64,7 +65,7 @@ const ProfilePage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className={labelClasses}><User className="w-4 h-4" /> Owner Name</label>
+                  <label className={labelClasses}><User className="w-4 h-4 text-slate-400" /> Owner Name</label>
                   <input 
                     disabled={!isEditing}
                     type="text" 
@@ -74,7 +75,7 @@ const ProfilePage: React.FC = () => {
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className={labelClasses}><Info className="w-4 h-4" /> Description</label>
+                  <label className={labelClasses}><Info className="w-4 h-4 text-slate-400" /> Description</label>
                   <textarea 
                     disabled={!isEditing}
                     rows={3}
@@ -86,14 +87,14 @@ const ProfilePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-[#111827]/60 backdrop-blur-xl p-6 md:p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.2)] border border-white/5">
-              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <Phone className="w-5 h-5 text-violet-400" />
+            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
+              <h2 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <Phone className="w-5 h-5 text-blue-600" />
                 Contact & Location
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className={labelClasses}><Mail className="w-4 h-4" /> Email Address</label>
+                  <label className={labelClasses}><Mail className="w-4 h-4 text-slate-400" /> Email Address</label>
                   <input 
                     disabled={!isEditing}
                     type="email" 
@@ -103,7 +104,7 @@ const ProfilePage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className={labelClasses}><Phone className="w-4 h-4" /> Phone Number</label>
+                  <label className={labelClasses}><Phone className="w-4 h-4 text-slate-400" /> Phone Number</label>
                   <input 
                     disabled={!isEditing}
                     type="tel" 
@@ -113,7 +114,7 @@ const ProfilePage: React.FC = () => {
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className={labelClasses}><MapPin className="w-4 h-4" /> Business Address</label>
+                  <label className={labelClasses}><MapPin className="w-4 h-4 text-slate-400" /> Business Address</label>
                   <input 
                     disabled={!isEditing}
                     type="text" 
@@ -125,14 +126,14 @@ const ProfilePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-[#111827]/60 backdrop-blur-xl p-6 md:p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.2)] border border-white/5">
-              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <Clock className="w-5 h-5 text-violet-400" />
+            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
+              <h2 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <Clock className="w-5 h-5 text-blue-600" />
                 Operating Hours
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className={labelClasses}><Clock className="w-4 h-4" /> Opening Time</label>
+                  <label className={labelClasses}><Clock className="w-4 h-4 text-slate-400" /> Opening Time</label>
                   <input 
                     disabled={!isEditing}
                     type="time" 
@@ -142,7 +143,7 @@ const ProfilePage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className={labelClasses}><Clock className="w-4 h-4" /> Closing Time</label>
+                  <label className={labelClasses}><Clock className="w-4 h-4 text-slate-400" /> Closing Time</label>
                   <input 
                     disabled={!isEditing}
                     type="time" 
@@ -155,19 +156,19 @@ const ProfilePage: React.FC = () => {
             </div>
 
             {isEditing && (
-              <div className="flex gap-4 pt-4">
+              <div className="flex justify-end gap-3 pt-2">
                 <button 
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="flex-1 bg-white/5 text-slate-300 px-6 py-3.5 rounded-xl font-bold hover:bg-white/10 transition-all active:scale-95 border border-white/10"
+                  className="px-6 py-2.5 rounded-lg font-semibold text-slate-600 bg-white border border-slate-300 hover:bg-slate-50 transition-all active:scale-95 text-sm"
                 >
                   Cancel
                 </button>
                 <button 
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white px-6 py-3.5 rounded-xl font-bold hover:from-violet-500 hover:to-fuchsia-500 transition-all shadow-lg shadow-violet-500/25 flex items-center justify-center gap-2 active:scale-95"
+                  className="px-6 py-2.5 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-sm active:scale-95 flex items-center gap-2 text-sm"
                 >
-                  <Save className="w-5 h-5" />
+                  <Save className="w-4 h-4" />
                   Save Changes
                 </button>
               </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import Header from './customer/components/Header';
 import Footer from './customer/components/Footer';
 
@@ -9,8 +10,9 @@ const BookingsPage = React.lazy(() => import('./vendor/pages/BookingsPage'));
 const BookingDetailsPage = React.lazy(() => import('./vendor/pages/BookingDetailsPage'));
 const ProfilePage = React.lazy(() => import('./vendor/pages/ProfilePage'));
 const ReviewsPage = React.lazy(() => import('./vendor/pages/ReviewsPage'));
-const VendorLoginPage = React.lazy(() => import('./vendor/pages/VendorLoginPage'));
-const VendorSignupPage = React.lazy(() => import('./vendor/pages/VendorSignupPage'));
+const VendorLoginPage = React.lazy(() => import('./vendor/auth/VendorLogin'));
+const VendorSignupPage = React.lazy(() => import('./vendor/auth/VendorSignup'));
+const VendorOtpPage = React.lazy(() => import('./vendor/auth/VendorOtp'));
 
 
 // Lazy Load Pages
@@ -30,6 +32,21 @@ const PageLoader = () => (
 function App() {
   return (
     <Router>
+      <Toaster 
+        position="top-center" 
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: '#ffffff',
+            color: '#1e293b',
+            border: '1px solid #e2e8f0',
+            fontWeight: '500',
+            fontSize: '14px',
+            borderRadius: '8px',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+          },
+        }} 
+      />
       <React.Suspense fallback={<PageLoader />}>
         <Routes>
           {/* Customer Auth Routes */}
@@ -46,6 +63,7 @@ function App() {
           {/* Vendor Auth Routes */}
           <Route path="/vendor/login" element={<VendorLoginPage />} />
           <Route path="/vendor/signup" element={<VendorSignupPage />} />
+          <Route path="/vendor/otp" element={<VendorOtpPage />} />
           
           {/* Vendor Routes */}
           <Route path="/vendor" element={<VendorDashboard />} />
